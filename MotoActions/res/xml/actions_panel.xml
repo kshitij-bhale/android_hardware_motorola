@@ -12,6 +12,22 @@
         android:key="actions_key">
 
         <SwitchPreferenceCompat
+            android:key="gesture_fp"
+            android:title="@string/fp_gesture_title"
+            android:summary="@string/fp_gesture_summary"
+            android:defaultValue="false" />
+
+        <ListPreference
+            android:key="gesture_fp_action"
+            android:title="@string/fp_gesture_action_title"
+            android:summary="%s"
+            android:entries="@array/fp_gesture_action_entries"
+            android:entryValues="@array/fp_gesture_action_values"
+            android:defaultValue="none"
+            android:dependency="gesture_fp" />
+
+
+        <SwitchPreferenceCompat
             android:key="gesture_chop_chop"
             android:defaultValue="true"
             android:title="@string/chop_chop_gesture_title"

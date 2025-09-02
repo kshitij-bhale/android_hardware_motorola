@@ -1,0 +1,9 @@
+cc_library_shared {
+    name: "libfp_gesture",
+    srcs: [
+        "com_lineageos_settings_device_FpGesture.cpp",
+        "FpGesture.cpp",
+    ],
+    shared_libs: ["liblog"],
+    cflags: ["-Werror"],
+}

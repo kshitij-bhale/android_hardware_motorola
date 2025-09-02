@@ -1,7 +1,18 @@
 /*
- * SPDX-FileCopyrightText: 2015 The CyanogenMod Project
- * SPDX-FileCopyrightText: The LineageOS Project
- * SPDX-License-Identifier: Apache-2.0
+ * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017-2022 The LineageOS Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package org.lineageos.settings.device;
@@ -22,6 +33,8 @@ import org.lineageos.settings.device.actions.UpdatedStateNotifier;
 
 public class MotoActionsSettings {
     private static final String GESTURE_CHOP_CHOP_KEY = "gesture_chop_chop";
+    private static final String GESTURE_FP_KEY = "gesture_fp";
+    private static final String GESTURE_FP_ACTION_KEY = "gesture_fp_action";
     private static final String GESTURE_IR_SILENCER_KEY = "gesture_ir_silencer";
     private static final String GESTURE_FLIP_TO_MUTE_KEY = "gesture_flip_to_mute";
     private static final String GESTURE_LIFT_TO_SILENCE_KEY = "gesture_lift_to_silence";
@@ -37,6 +50,8 @@ public class MotoActionsSettings {
     private final UpdatedStateNotifier mUpdatedStateNotifier;
 
     private boolean mChopChopEnabled;
+    private boolean mFpGestureEnabled;
+    private String mFpGestureAction;
     private boolean mPickUpGestureEnabled;
     private boolean mPocketGestureEnabled;
     private boolean mIrWakeUpEnabled;
@@ -54,6 +69,14 @@ public class MotoActionsSettings {
 
     public boolean isChopChopGestureEnabled() {
         return mChopChopEnabled;
+    }
+
+    public boolean isFpGestureEnabled() {
+        return mFpGestureEnabled;
+    }
+
+    public String getFpGestureAction() {
+        return mFpGestureAction;
     }
 
     public static boolean isAlwaysOnEnabled(Context context) {
@@ -118,6 +141,8 @@ public class MotoActionsSettings {
 
     private void loadPreferences(SharedPreferences sharedPreferences) {
         mChopChopEnabled = sharedPreferences.getBoolean(GESTURE_CHOP_CHOP_KEY, true);
+        mFpGestureEnabled = sharedPreferences.getBoolean(GESTURE_FP_KEY, false);
+        mFpGestureAction = sharedPreferences.getString(GESTURE_FP_ACTION_KEY, "none");
         mIrWakeUpEnabled = sharedPreferences.getBoolean(GESTURE_IR_WAKEUP_KEY, true);
         mPickUpGestureEnabled = sharedPreferences.getBoolean(GESTURE_PICK_UP_KEY, true);
         mPocketGestureEnabled = sharedPreferences.getBoolean(GESTURE_POCKET_KEY, true);
@@ -134,6 +159,10 @@ public class MotoActionsSettings {
 
                     if (GESTURE_CHOP_CHOP_KEY.equals(key)) {
                         mChopChopEnabled = sharedPrefs.getBoolean(GESTURE_CHOP_CHOP_KEY, true);
+                    } else if (GESTURE_FP_KEY.equals(key)) {
+                        mFpGestureEnabled = sharedPrefs.getBoolean(GESTURE_FP_KEY, false);
+                    } else if (GESTURE_FP_ACTION_KEY.equals(key)) {
+                        mFpGestureAction = sharedPrefs.getString(GESTURE_FP_ACTION_KEY, "none");
                     } else if (GESTURE_IR_WAKEUP_KEY.equals(key)) {
                         mIrWakeUpEnabled = sharedPrefs.getBoolean(GESTURE_IR_WAKEUP_KEY, true);
                     } else if (GESTURE_PICK_UP_KEY.equals(key)) {
